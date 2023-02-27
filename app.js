@@ -7,7 +7,7 @@ const methodOverride = require('method-override')
 require('dotenv').config()
 const app = express()
 
-
+// enable ejs engine
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({
     extended: true
@@ -29,9 +29,5 @@ const start = async()=>{
     }
 }
 app.use(errorHandler)
+// start the server
 start()
-// api/v1/tasks  ->get all tasks - get
-// api/v1/tasks -> create an task - post
-// api/v1/tasks/:id -> get single task - get
-// api/v2/tasks/:id -> update task - patch
-// api/v2/tasks/:id ->delete a task - delete

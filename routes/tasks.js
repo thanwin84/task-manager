@@ -5,13 +5,14 @@ const {
     createAtask,
     getSingleTask,
     updateAtask,
-    deleteATask
+    deleteATask,
 } = require('./../controllers/tasks')
 
 
 router.route('/')
 .get(getAllTasks)
 .post(createAtask)
+
 
 router.route('/:id')
 .get(getSingleTask)

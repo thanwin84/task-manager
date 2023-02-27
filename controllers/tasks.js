@@ -38,7 +38,7 @@ const getSingleTask = async(req, res, next)=>{
             
             return next(createCustomError(`no task id with ${id}`, 404))
         }
-        res.status(200).json(task)
+        res.status(200).render('../views/edit_task.ejs', {task: task})
     } catch (error) {
         // res.status(500).json({message: error})
         next(error)

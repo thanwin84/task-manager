@@ -72,7 +72,7 @@ const deleteATask = async(req, res, next)=>{
         if (!task){
             return next(createCustomError(`no task id with ${id}`, 404))
         }
-        res.status(200).json(task)
+        res.status(200).redirect('/api/v1/tasks')
     } catch (error) {
         next(error)
     }

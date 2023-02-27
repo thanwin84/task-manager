@@ -3,41 +3,63 @@
     .list-group {
       box-shadow: 0 0 10px rgba(0,0,0,0);
     }
+    .task-section{
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        border-radius: 10px;
+    }
+    .my-border {
+        border: 1px solid black;
+    }
     </style>
-<div class="container w-50 mb-4">
+<section class="container w-50">
     <h3 class = 'text-center py-4 text-primary'>Task Manager</h3>
     <!-- create a new task -->
     <form action="/api/v1/tasks" class = 'mb-3 text-center' method="post">
         <div class="input-group py-4">
-            <input type="text" class="form-control" placeholder="Enter Your Task here" name="name">
+            <input type="text" class="form-control" placeholder="Enter Your Task here" name="name" autocomplete="off">
             <button type="submit" class="btn btn-success ms-2" >Add Task</button>
         </div>
     </form>
     <!-- end of create task -->
-    <ul class="list-group  d-flex justify-content-between">
-        <% tasks.forEach(task =>{ %>
-           <div class = 'd-flex justify-content-between list-group-item p-2' style="background-color: white;">
-            <div>
-                <form action="/api/v1/tasks/<%= task.id %>?_method=PATCH" method = 'post'>
-                    <li class=" d-flex justify-content-between">
-                        <div class="">
-                            <input  type="checkbox"  name = 'myclick' value= "on" <%= task.completed ? 'checked' : '' %> id= "<%= task.id %>"; onChange="this.form.submit()" >
-                        <%= task.name %>
-                        </div>
-                    </li>
-                </form>
-            </div>
-            <div>
-                <form action="">
-                    <div class="d-flex align-items-center">
-                        <a href="#" class="text-dark"><i class="fa-regular fa-pen-to-square"></i></a>
-                   <button type="submit" class ='btn btn-link'> <i class="fa-solid fa-trash-can ms-2 text-danger"></i></button>
-                    </div>
-                </form>
-            </div>
-           </div>
-        <%}) %>
-      </ul>
     
-  </div>
+</section>
+  <section class="container w-50 task-section p-2">
+    <!-- iterate through tasks list -->
+    <% tasks.forEach(task =>{ %>
+        <!-- sinlge task item -->
+        <div class ='d-flex justify-content-between ms-2'>
+            <!-- task name -->
+            <div class ='d-flex align-items-center'>
+                <form action="/api/v1/tasks/<%= task.id %>?_method=PATCH" method = 'post'>
+                    <input  type="checkbox"  name = 'myclick' value= "on" <%= task.completed ? 'checked' : '' %> id= "<%= task.id %>"; onChange="this.form.submit()" >
+                <span class ='ms-2'><%= task.name %></span>
+                </form>
+            </div>
+
+            <!-- creation date -->
+            <div class ='d-flex align-items-center'>
+                <small class = 'text-muted'>17th January</small>
+            </div>
+
+            <!-- edit and delete button -->
+            <div class ='d-flex align-items-center p-0'>
+                <a href="#" class="text-dark">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+                <form action="/api/v1/tasks/<%= task.id %>?_method=DELETE" method="post">
+                    <button type="submit" class ='btn btn-link'>
+                        <i class="fa-solid fa-trash-can ms-2 text-danger"></i>
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+        <!-- end of single task item -->
+    <% }) %>
+   
+
+   </section>
+
+
 <%- include('partials/footer.ejs') -%>

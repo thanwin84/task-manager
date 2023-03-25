@@ -1,14 +1,19 @@
 const {BaseError} = require('./baseError')
 const {httpStatusCodes} = require('../lib/httpStatusCodes')
 
-class Api404Error extends BaseError{
-    constructor(message, statusCode = httpStatusCodes.NOT_FOUND){
-        super(message, statusCode)
+class Api404Error extends BaseError {
+    constructor(
+        message,
+        stutusCode = httpStatusCodes.NOT_FOUND,
+        isOperational = true,
+        description = 'Not Found'
+    ){
+        super(message, statusCode, isOperational, description)
     }
+   
 }
 
-const n = new Api404Error("djfj")
-console.log(n)
+
 module.exports = {
     Api404Error
 }

@@ -1,6 +1,6 @@
 class BaseError extends Error{
-    constructor(name, statusCode, isOperational, description){
-        super(name)
+    constructor(message, statusCode, isOperational, description){
+        super(message)
         this.statusCode = statusCode
         this.isOperational = isOperational
         this.description = description

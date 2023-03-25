@@ -1,0 +1,67 @@
+<%- include('partials/header.ejs') -%>
+<style>
+    .task-section{
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        border-radius: 10px;
+    }
+   
+    </style>
+<section class="container w-50">
+    <h3 class = 'text-center py-4 text-primary'>Task Manager</h3>
+    <!-- create a new task -->
+    <form action="/api/v1/tasks" class = 'mb-3 text-center' method="post">
+        <div class="input-group py-4">
+            <input type="text" class="form-control" placeholder="Enter Your Task here" name="name" autocomplete="off">
+            <button type="submit" class="btn btn-success ms-2" >Add Task</button>
+        </div>
+    </form>
+    <!-- end of create task -->
+    
+</section>
+  <section class="container w-50 task-section p-2">
+    <!-- iterate through tasks list -->
+    <% tasks.forEach(task =>{ %>
+        <!-- sinlge task item -->
+        <div class ='d-flex justify-content-between ms-2'>
+            <!-- task name -->
+            <div class ='d-flex align-items-center'>
+                <form action="/api/v1/tasks/<%= task.id %>?_method=PATCH" method = 'post'>
+                    <input  type="checkbox"  name = 'myclick' value= "on" <%= task.completed ? 'checked' : '' %> id= "<%= task.id %>"; onChange="this.form.submit()" >
+                <span class ='ms-2'><%= task.name %></span>
+                </form>
+            </div>
+
+            <!-- creation date -->
+            <div class ='d-flex align-items-center'>
+                <small class = 'text-muted'>
+                    <%= task.createdAt.toLocaleDateString(
+                        'en-US',
+                        {month: "short", year: "numeric", day: "numeric"}
+                    ) %>
+                </small>
+            </div>
+
+            <!--Action buttons -->
+            <div class ='d-flex align-items-center p-0'>
+                <!-- edit button -->
+                <a href="/api/v1/tasks/<%= task.id %>" class = 'btn btn-smll text-dark'>
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </a>
+                <!-- delete button -->
+                <form action="/api/v1/tasks/<%= task.id %>?_method=DELETE" method="post">
+                    <button type="submit" class ='btn btn-link'>
+                        <i class="fa-solid fa-trash-can ms-2 text-danger"></i>
+                    </button>
+                </form>
+            </div>
+            
+        </div>
+        <!-- end of single task item -->
+    <% }) %>
+   </section>
+  
+  
+  
+
+<%- include('partials/footer.ejs') -%>
